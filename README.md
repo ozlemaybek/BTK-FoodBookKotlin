@@ -9,6 +9,11 @@
 - settings.gradle
 - MainActivity.kt
 - activity_main.xml
+- FoodListFragment.kt
+- fragment_food_list.sml
+- FoodDetailFragment.kt
+- fragment_food_detail.xml
+- food_graph.xml
 
 > Projedeki Teknolojiler: MVVM, Retrofit, Room, DataBinding
 
@@ -87,6 +92,24 @@ task clean(type: Delete) {
 
 ![image](https://user-images.githubusercontent.com/109730490/190404653-37d02e96-81a5-43ae-bcc5-6282e45472f8.png)
 
+## PROJE DETAYLARI
 
+> İki fragment ekledik. Birinci fragment'ta besin listesi ikinci fragment'ta ise besin detayı gösterilecek. 
+
+> Fragment xml dosyasına constraintLayout'uda içine alacak bir <layout></layout> tag'i ekledik. "layout" dataBinding'te ve navigation'da kullanacağımız bir yapı. Bir layout tag'i açtıktan sonra xmlns yani xml name sppace'leri constraint layout'tan alıp layout tag'inin içine koyduk:
+
+![image](https://user-images.githubusercontent.com/109730490/190409406-84efafb3-c1bf-4ad6-9c85-ba0351040826.png)
+
+> Fragmentlar için tasarımları yaptıktan sonra navigation grafiği çizdik. Bunun için: res > sağ tık > Android Resource File
+
+![image](https://user-images.githubusercontent.com/109730490/190410731-d367b039-a591-4135-aa49-8eadceb946de.png)
+
+![image](https://user-images.githubusercontent.com/109730490/190411012-8ebc71bd-3939-46a6-aefd-5c812f8711ee.png)
+
+## activity_main.xml'de yaptıklarımız:
+
+> İçine bir navHostFragment attık ve çizdiğimiz food_graph'i verdik:
+
+![image](https://user-images.githubusercontent.com/109730490/190411502-437ba1bd-fdcd-4afc-bede-c7cd737a53d6.png)
 
 
