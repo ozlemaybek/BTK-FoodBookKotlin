@@ -14,6 +14,7 @@
 - FoodDetailFragment.kt
 - fragment_food_detail.xml
 - food_graph.xml
+- food_recyler_row.xml (layout resources file)
 
 > Projedeki Teknolojiler: MVVM, Retrofit, Room, DataBinding
 
@@ -130,9 +131,6 @@ task clean(type: Delete) {
 
 ![image](https://user-images.githubusercontent.com/109730490/190856093-8d921706-9deb-4c93-88b6-813aa57b7e5e.png)
 
-
-
-
 ## Project Structure
 
 ![image](https://user-images.githubusercontent.com/109730490/190853905-c66b98ea-c188-4eb8-8d20-ea4302d73436.png)
@@ -144,6 +142,50 @@ task clean(type: Delete) {
 ![image](https://user-images.githubusercontent.com/109730490/190853941-2e8a03c5-e760-4d63-b9ca-ed21a53b3a38.png)
 
 > Burada değiştirdiğimiz şeyler otomatik olarak build.gradle'a ekleniyor. Bu işlemi retrofit'in son versiyonlarını kullanabilelim diye yaptık.
+
+## ARAYÜZ TASARIMI
+
+### swipe refresh layout
+
+> Ekranı aşağı doğru kaydırdığımızda yenileyen yapıdır. Tıpkı constraint layout gibi bu da bir layout çeşitidir. 
+
+> swipe; sağa, sola, yukarı ve aşağı doğru çekme işlemine verilen isimdir. 
+
+> Bu layout'u build.gradle'da dependencies kısmına eklemeliyiz. Sonra kullanabiliriz. 
+
+### PROGRESS BAR (Yükleniyor İkonu)
+
+![image](https://user-images.githubusercontent.com/109730490/190859907-845ac830-3dc7-4291-8ae4-9fa258d8d18d.png)
+
+## RecycleView tasarımı
+
+> Bu projede verileri çekeceğimiz link githubdan JSON formatında geliyor. JSON bir gösterim biçimidir. JSON'ı tüm modern programlama dilleri kendi kütüphaneleri ile işleyebilecek yeteneğe sahipler. 
+
+>Kullanacağımız data bu şekilde;
+
+![image](https://user-images.githubusercontent.com/109730490/190860377-73a59e2e-cf6d-45d0-91e9-5449f41009da.png)
+
+> Ama biz sadece ismini, kalorisini ve resmini gösterecek şekilde kullanacağız. Ve alt alta gösterim için linear layout kullanacağız. 
+
+### layout_weight
+
+![image](https://user-images.githubusercontent.com/109730490/190863093-67117006-3876-4aa0-8e4f-ad727cdef2ae.png)
+
+> 5'te 2'sini iamgeView'a 5'te 3'ünü diğer linear layout'a verdik.
+
+### minHeight
+
+![image](https://user-images.githubusercontent.com/109730490/190864063-602956dd-b04e-4269-9135-ef1107ae009e.png)
+
+### scaleType
+
+![image](https://user-images.githubusercontent.com/109730490/190864100-3bba28b8-dded-4d26-9bbd-442575aa4f36.png)
+
+> fitCenter : Merkezde fit et.
+
+> Resmin relative layout'un en başında görünmesini sağlamak:
+
+![image](https://user-images.githubusercontent.com/109730490/190864195-026d660b-973b-487d-ab11-16f90f048c7b.png)
 
 
 
