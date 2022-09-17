@@ -112,4 +112,38 @@ task clean(type: Delete) {
 
 ![image](https://user-images.githubusercontent.com/109730490/190411502-437ba1bd-fdcd-4afc-bede-c7cd737a53d6.png)
 
+## Navigation ve argument
+
+![image](https://user-images.githubusercontent.com/109730490/190853367-9c0e965f-7e4d-4c3e-a5ce-5399d3fc76f7.png)
+
+> foodDetailFragment seçili iken arguments bölümündeki + butonuna bastık ve foodDetailFragment için bir argument ekledik. Bunu yaptığımızda argument graph'a ait xml dosyasınada ekleniyor:
+
+![image](https://user-images.githubusercontent.com/109730490/190853529-e4ed23ad-36a3-46d7-8aee-3d10f6c40afb.png)
+
+> Bu işlemi yaptıktan sonra Build > Rebuild Project yapmalıyız. Çünkü navigation framework'ü bizim için sınıfları oluşturmalı. 
+
+> Sonrasında FoodListFragment.kt'ye aşağıdaki eklemeyi yaptık:
+
+![image](https://user-images.githubusercontent.com/109730490/190856019-8c7f5427-a221-4c46-9567-35e69ad9e184.png)
+
+> Ve FoodDetailsFragment.kt'ye aşağıdaki eklemeyi yaptık:
+
+![image](https://user-images.githubusercontent.com/109730490/190856093-8d921706-9deb-4c93-88b6-813aa57b7e5e.png)
+
+
+
+
+## Project Structure
+
+![image](https://user-images.githubusercontent.com/109730490/190853905-c66b98ea-c188-4eb8-8d20-ea4302d73436.png)
+
+> Compability uyumluluk demektir.
+
+> Burada modules kısmına geldiğimizde sourcecompability ve target compability kısmının java 1.8 olduğundan emin olmalıyız:
+
+![image](https://user-images.githubusercontent.com/109730490/190853941-2e8a03c5-e760-4d63-b9ca-ed21a53b3a38.png)
+
+> Burada değiştirdiğimiz şeyler otomatik olarak build.gradle'a ekleniyor. Bu işlemi retrofit'in son versiyonlarını kullanabilelim diye yaptık.
+
+
 
