@@ -211,6 +211,48 @@ task clean(type: Delete) {
 
 > MVVM; bir zorunluluk olmasa da mobil uygulama geliştirme endüstrisinde en güzel şekilde kod yazabileceğimiz yapı olarak adlandırılır. Fakat teknoloji sürekli geliştiğinde birkaç yıl sonra çok daha iyi bir mimari çıkabilir ve onu kullanmaya başlayabiliriz. 
 
+## MODEL YAZMAK
+
+> Verilerimizi bir model içinde alıp bir besin sınıfı oluşturacağız. Bunun için oluşturduğumuz dosyaları kolay bulmak adına MVVM paketleri oluşturacağız:
+
+> Bir package oluşturalım:
+
+![image](https://user-images.githubusercontent.com/109730490/190901866-c47377f2-4cfd-4814-afa1-bae2cc2ced02.png)
+
+1)model package:
+
+> package'ın isminin sonuna .model ekliyoruz:
+
+![image](https://user-images.githubusercontent.com/109730490/190901880-8a416c3d-e07b-44f8-b4b1-412d0f13533b.png)
+
+2)view package:
+
+![image](https://user-images.githubusercontent.com/109730490/190902064-e3657d72-91de-4ab9-9a39-d57257fa4c9c.png)
+
+3)view model package
+
+![image](https://user-images.githubusercontent.com/109730490/190902041-43d1dfd1-cc0c-45bb-b419-68c557868c26.png)
+
+> Sonunda böyle bir görünüm elde ettik:
+
+![image](https://user-images.githubusercontent.com/109730490/190902085-6e68e006-b1e5-4e47-b5a2-fde93bce01da.png)
+
+> Aslında bunu yapmamız şart değildi fakat "com.ozlem.foodbookkotlin" paketinin altında çok fazla sınıf olacak ve sonradan istediğimizi bulmak zorlaşacak bu yüzden ayrı paketler oluşturduk.
+
+> Sonrasında proje içinde oluşturduğumuz activity ve fragment'lar bir view olduğu için onları view paketinin içine sürükleyip refactor diyoruz: 
+
+![image](https://user-images.githubusercontent.com/109730490/190902232-5c5f68f1-7ccf-456a-96fc-afb4cf21d021.png)
+
+![image](https://user-images.githubusercontent.com/109730490/190902266-4040f3ec-1847-4c17-a2e5-e5a0d7d65746.png)
+
+> Şimdi model paketi içinde yeni bir kotlin sınıfı oluşturalım:
+
+![image](https://user-images.githubusercontent.com/109730490/190902306-69805320-4176-4e8a-83da-8fe4ca8ccbe0.png)
+
+> Sonra bunu bir data sınıfına çevirelim. 
+
+DATA CLASS: İnternetten ya da bir sunucudan veri çekeceksek ve tek yapmak istediğimiz o verilerden bir model oluşturmaksa bizim için ideal bir yapı sunuyor. Bir data class oluşturduğumuzda primary constructor kullanmalıyız yoksa hata verir çünkü data class'ın amacı model oluşturmak. Primary constructor'ın içine isteyeceğimiz değişkenleri yazmalıyız. 
+
 ## KAYNAKLAR
 
 - [BTK AKADEMİ](https://www.btkakademi.gov.tr/portal/course/kotlin-ile-android-mobil-uygulama-gelistirme-ileri-seviye-10359)
