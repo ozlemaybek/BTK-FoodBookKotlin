@@ -187,5 +187,30 @@ task clean(type: Delete) {
 
 ![image](https://user-images.githubusercontent.com/109730490/190864195-026d660b-973b-487d-ab11-16f90f048c7b.png)
 
+## MVVM (Model View View Model) MİMARİSİ
 
+![image](https://user-images.githubusercontent.com/109730490/190901227-e5b6fd99-d4b2-4393-a3b7-39e04d39b1f5.png)
 
+> MVVM; kodları nasıl yazmamız gerektiği ile ilgili bize rehberlik eder. 
+
+> MVVM; sadece ANDROID'e özgü bir mimari değil. Fakat Kotlin tarafından desteklenen bir mimari.
+
+> MVVM mimarisinde bir View var, bir model var model dediğimiz şey bizim class'ımız bir de View Model var. 
+
+> Daha önceki mimarilerde verinin işlenmesi vs gibi işlemlerin hepsini View'lar içinde yapıyorduk yani bir fragment ya da activity içerisinde verileri çekiyorduk ve bu zamana kadarki projelerde de böyle yaptık. 
+
+> Fakat MVVM mimarisinde model tamamen çekilecek verileri bulundursun, View'da ise sadece kullanıcı arayüzü ile ilgili şeyler olsun mesela hata mesajını ya da progress barı görünür yap, recylerView'u yenile gibi işlemleri View'da yani fragment içinde activity içinde yapabiliriz. Fakat verileri indirme, onları işleme işlemlerini ayrı bir sınıfta yap ve onun adıda View Model olsun. 
+
+> MVVM; kullanıcının göreceği şeyleri "View" içerisinde, kullanıcının görmeyeceği şeyleri ise "View Model" içerisinde yap diyor. 
+
+> Bu sayede artık fragment'lar içerisinde çok yüklü işlemler yapmıyoruz. Genel olarak business mantığı ile UI mantığını ayırmış oluyoruz ve bu da kod düzenini beraberinde getiriyor. 
+
+> Eğer ayrı ayrı sınıflarda herkes kendi işini yaparsa bu bize clean code avantajı getiriyor. 
+
+> Bir sınıfta bir işlem yapacaksak ve o sınıftan oluşturduğumuz objeleri başka bir yerde kullanacaksak çok büyük avantajlar elde ediyoruz. Aynı zamanda testlerimizi yapmak çok kolaylaşıyor. Örneğin View Model'da bir test yapacaksak sadece View Model'dakii değişkenleri değiştirerek işlemlerimi View'a dokunmadan yapabiliyorum. 
+
+> MVVM; bir zorunluluk olmasa da mobil uygulama geliştirme endüstrisinde en güzel şekilde kod yazabileceğimiz yapı olarak adlandırılır. Fakat teknoloji sürekli geliştiğinde birkaç yıl sonra çok daha iyi bir mimari çıkabilir ve onu kullanmaya başlayabiliriz. 
+
+## KAYNAKLAR
+
+- [BTK AKADEMİ](https://www.btkakademi.gov.tr/portal/course/kotlin-ile-android-mobil-uygulama-gelistirme-ileri-seviye-10359)
