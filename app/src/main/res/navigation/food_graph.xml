@@ -6,7 +6,7 @@
 
     <fragment
         android:id="@+id/foodListFragment"
-        android:name="com.ozlem.foodbookkotlin.FoodListFragment"
+        android:name="com.ozlem.foodbookkotlin.view.FoodListFragment"
         android:label="FoodListFragment" >
         <action
             android:id="@+id/action_foodListFragment_to_foodDetailFragment"
@@ -14,10 +14,14 @@
     </fragment>
     <fragment
         android:id="@+id/foodDetailFragment"
-        android:name="com.ozlem.foodbookkotlin.FoodDetailFragment"
+        android:name="com.ozlem.foodbookkotlin.view.FoodDetailFragment"
         android:label="FoodDetailFragment" >
         <action
             android:id="@+id/action_foodDetailFragment_to_foodListFragment"
             app:destination="@id/foodListFragment" />
+        <argument
+            android:name="foodArgumentID"
+            app:argType="integer"
+            android:defaultValue="0" />
     </fragment>
 </navigation>

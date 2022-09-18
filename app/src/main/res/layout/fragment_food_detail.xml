@@ -4,21 +4,86 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
-<androidx.constraintlayout.widget.ConstraintLayout
+<RelativeLayout
 
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".FoodDetailFragment">
+    tools:context=".view.FoodDetailFragment">
 
-    <Button
-        android:id="@+id/foodDetailButtonID"
+    <ImageView
+        android:id="@+id/foodImageID"
+        android:layout_margin="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:minHeight="200dp"
+        android:scaleType="fitCenter"
+        app:srcCompat="@drawable/ic_launcher_background">
+
+    </ImageView>
+
+    <!--android:layout_below="@id/foodImageID" foodImageID'nin altında dur demiş olduk.-->
+    <!--android:layout_centerHorizontal="true" : yatay olarak ortada dur-->
+
+    <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="GO FOOD LIST"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"></Button>
+        android:id="@+id/foodName_id"
+        android:layout_below="@id/foodImageID"
+        android:text="Food Name: "
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:layout_centerHorizontal="true"
+        android:layout_margin="10dp">
+    </TextView>
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/foodCalorie_id"
+        android:layout_below="@id/foodName_id"
+        android:text="Food Calorie: "
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:layout_centerHorizontal="true"
+        android:layout_margin="10dp">
+    </TextView>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/foodCarbohydrate_id"
+        android:layout_below="@id/foodCalorie_id"
+        android:text="Food Carbohydrate: "
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:layout_centerHorizontal="true"
+        android:layout_margin="10dp">
+    </TextView>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/foodProtein_id"
+        android:layout_below="@id/foodCarbohydrate_id"
+        android:text="Food Protein: "
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:layout_centerHorizontal="true"
+        android:layout_margin="10dp">
+    </TextView>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/foodOil_id"
+        android:layout_below="@id/foodProtein_id"
+        android:text="Food Oil: "
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:layout_centerHorizontal="true"
+        android:layout_margin="10dp">
+    </TextView>
+
+</RelativeLayout>
 </layout>

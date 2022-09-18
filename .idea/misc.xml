@@ -4,7 +4,8 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/Users/ozlem/AndroidStudioProjects/FoodBookKotlin/app/src/main/res/layout/activity_main.xml" value="0.3625" />
-        <entry key="..\:/Users/ozlem/AndroidStudioProjects/FoodBookKotlin/app/src/main/res/layout/fragment_food_detail.xml" value="0.3625" />
+        <entry key="..\:/Users/ozlem/AndroidStudioProjects/FoodBookKotlin/app/src/main/res/layout/food_recycler_row.xml" value="0.32708333333333334" />
+        <entry key="..\:/Users/ozlem/AndroidStudioProjects/FoodBookKotlin/app/src/main/res/layout/fragment_food_detail.xml" value="0.33" />
         <entry key="..\:/Users/ozlem/AndroidStudioProjects/FoodBookKotlin/app/src/main/res/layout/fragment_food_list.xml" value="0.3625" />
       </map>
     </option>
