@@ -2,7 +2,7 @@
 
 ## Kotlin İle Android Mobil Uygulama Geliştirme İleri Seviye (BTK AKADEMİ) Notlarım
 
-## Projede Kullnaılan Dosyalar:
+## Projede Kullanılan Dosyalar:
 
 - build.gradle Project
 - build.gradle Module-app
