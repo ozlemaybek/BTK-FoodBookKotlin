@@ -253,6 +253,26 @@ task clean(type: Delete) {
 
 DATA CLASS: İnternetten ya da bir sunucudan veri çekeceksek ve tek yapmak istediğimiz o verilerden bir model oluşturmaksa bizim için ideal bir yapı sunuyor. Bir data class oluşturduğumuzda primary constructor kullanmalıyız yoksa hata verir çünkü data class'ın amacı model oluşturmak. Primary constructor'ın içine isteyeceğimiz değişkenleri yazmalıyız. 
 
+![image](https://user-images.githubusercontent.com/109730490/191914589-08fe2cba-7693-4fe7-92ac-2201a8982d69.png)
+
+> data class içerisinde verimizde kullanılan isimleri kullanmak zorunda değiliz. Fakat bazı durumlarda farklı isim kullanmamız hata çıkartabiliyor. Bunların nasıl çözüleceğini göreceğiz. 
+
+![image](https://user-images.githubusercontent.com/109730490/191914817-b9b2d452-a1f8-430e-894f-67169262a8db.png)
+
+> Model sınıfını tamamladık:
+
+![image](https://user-images.githubusercontent.com/109730490/191916479-91297100-a7a1-439a-8369-1fedaeca01cd.png)
+
+## RECYCLERVIEW İÇİN ADAPTER YAZIMI
+
+> Adapter ile ilgili kısımlar view paketinin içinde oluşturabiliriz çünkü görünümle ilgili kısımlar. Fakat biz ayrı bir pakete koyacağız. Birden fazla adapter oluşturduğumuzda kolaylık sağlıyor. 
+
+
+
+
+
+
+
 ## KAYNAKLAR
 
 - [BTK AKADEMİ](https://www.btkakademi.gov.tr/portal/course/kotlin-ile-android-mobil-uygulama-gelistirme-ileri-seviye-10359)
