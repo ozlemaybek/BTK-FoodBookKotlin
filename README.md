@@ -268,6 +268,24 @@ DATA CLASS: İnternetten ya da bir sunucudan veri çekeceksek ve tek yapmak iste
 > Adapter ile ilgili kısımlar view paketinin içinde oluşturabiliriz çünkü görünümle ilgili kısımlar. Fakat biz ayrı bir pakete koyacağız. Birden fazla adapter oluşturduğumuzda kolaylık sağlıyor. 
 
 
+## VIEW MODEL YAZMAK
+
+> MVVM bizden her bir view için bir tane view model oluşturmamızı ister. Yani tek bir model view sınıfı oluşturup her şeyi orada yapmakta temiz koda girmez. Bu yüzden her bir view için ayrı ayrı view model oluşturmamız gerekir. 
+
+> İlk olarak viewmodel paketinin içinde FoodListViewModel isimli bir kotlin class'ı oluşturuyorum. 
+
+> ViewModel; görünümlerimiz ile model arasında bir yapı. İnternetten veri çekeceksek ya da kullanıcının görmediği arkaplan işleri ypaacaksak bunun içinde yapabiliyoruz. 
+
+> ViewModel bir scope (fragment, activity) ile beraber oluşturulur ve fragment veya activity kapanana kadar devam ediyor. 
+
+## Live Data
+
+> Live Data veri tutan bir sınıftır. observer dediğimiz gözlemleyici bir yer var bir de observable dediğimiz gözlemlenebilir veriler var. Live Data gözlemlenebilir bir obje ve gözlemleyicilerimiz buradaki değişikliklere kayıt olabiliyor. 
+
+
+- Live Data ve view model'ı her zaman birlikte kullanırız ki hem bize hem yaşam döngüsü açısından avantaj sağlasın hem de yaşam döngüsü içinde beraber çalıştığı view model ile beraber verilerin değişikliğini görünümlere bildirebilsin. Böylece günlerce uğraşıp yapabilceğimiz yapıları direkt olarak view model sınıfından ve live data sınıfından faydalanarak kolayca yapabiliyoruz. 
+
+
 
 
 
