@@ -3,9 +3,11 @@ package com.ozlem.foodbookkotlin.adapter
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.Navigation
 import androidx.recyclerview.widget.RecyclerView
 import com.ozlem.foodbookkotlin.R
 import com.ozlem.foodbookkotlin.model.Food
+import com.ozlem.foodbookkotlin.view.FoodListFragmentDirections
 import kotlinx.android.synthetic.main.food_recycler_row.view.*
 
 // Food : Data sınıfımız
@@ -27,6 +29,11 @@ class FoodRecyclerAdapter (val FoodList : ArrayList<Food>) : RecyclerView.Adapte
         holder.itemView.foodNameID.text = FoodList.get(position).name
         holder.itemView.foodCalorieID.text = FoodList.get(position).calorie
         // Görsel kısmı eklenecek.
+
+        holder.itemView.setOnClickListener {
+            val action = FoodListFragmentDirections.actionFoodListFragmentToFoodDetailFragment(0)
+            Navigation.findNavController(it).navigate(action)
+        }
     }
 
     override fun getItemCount(): Int {

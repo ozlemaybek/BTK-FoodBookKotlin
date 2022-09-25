@@ -58,6 +58,8 @@ class FoodListFragment : Fragment() {
         recyclerViewID.layoutManager = LinearLayoutManager(context)
         recyclerViewID.adapter = recyclerFoodAdapter
 
+        observeLiveData()
+
     }
 
     // gözlem yapıp güncel verileri alalım:
@@ -68,8 +70,10 @@ class FoodListFragment : Fragment() {
         // FoodListViewModel'da bulunan Live Data'lardan foods'u gözlemlemek için:
         // owner : bu yaşam döngüsünün sahibi kim.
         // observer : gözlemleyici. Bizesonuç olarak gözlemlenen veriyi verecek
-        viewModel.foods.observe(this , Observer {  foods ->
+        // this hata verdi bu yüzden viewLifecycleOwner'a çevirdim:
+        viewModel.foods.observe(viewLifecycleOwner , Observer {  foods ->
             foods.let {
+                // Besin Listesi:
                 recyclerViewID.visibility = View.VISIBLE
                 recyclerFoodAdapter.foodListUpdate(foods)
             }
@@ -82,9 +86,30 @@ class FoodListFragment : Fragment() {
                 if(it){
                     // foodErrorMessage'ın göründüğü textView'un ID'si : textViewID
                     textViewID.visibility = View.VISIBLE
+                    // Besin listesi:
+                    recyclerViewID.visibility = View.GONE
                 }else{
                     // hata mesajı gösterilmesin:
                     textViewID.visibility = View.GONE
+                }
+            }
+        })
+
+        // FoodListViewModel'da bulunan Live Data'lardan foodLoading'i gözlemlemek için:
+        // yemek yükleniyor mu yüklenmiyor mu bunu kontrol edeceğiz.
+        viewModel.foodLoading.observe(viewLifecycleOwner , Observer { loading ->
+            loading?.let {
+                // Yükleniyorsa ne yapacağım:
+                // recyclerView ve hata mesajını gizleyeceğiz. Sadece proggress bar görünecek.
+                if(it){
+                    recyclerViewID.visibility = View.GONE
+                    // hata mesajı:
+                    textViewID.visibility = View.GONE
+                    // progress bar:
+                    progressBarID.visibility = View.VISIBLE
+                }else{
+                    // yüklenmiyorsa ne yapacağım:
+                    progressBarID.visibility = View.GONE
                 }
             }
         })
