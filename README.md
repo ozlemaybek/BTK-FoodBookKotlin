@@ -305,7 +305,7 @@ DATA CLASS: İnternetten ya da bir sunucudan veri çekeceksek ve tek yapmak iste
 
 > İnternetten veri çekmek ve onunla bir işlem yapmak istiyorsak kullandığımız bir kütüphane. Android için HTTP isteği yapacağımız, web sitesine gideceğimiz, bilgi çekeceğimiz ya da yollayacağımız durumlarda kullanabiliriz. İstediğimizde projemize implemente ederek kullanabiliyoruz. 
 
-## RxJava
+## RxJava (reactivex)
 
 > asenkron ve olay bazlı programları kullanmak ve gözlemlenebilir bazı yapılar oluşturmak için kullanıyoruz. 
 
@@ -321,7 +321,39 @@ DATA CLASS: İnternetten ya da bir sunucudan veri çekeceksek ve tek yapmak iste
 
 ## PROJEYE İNTERNET İZNİ EKLEMEK
 
-> 
+> İnternet izni manifest dosyasına eklenir:
+
+![image](https://user-images.githubusercontent.com/109730490/192266443-db2ab777-c218-4c02-a593-76bfa922e6ac.png)
+
+> İnternet izini dangerous kategorisine girmediği için kullanıcıya tekrar açık bir şekilde sormamıza gerek yoktur. 
+
+> İnternet izinini ekledikten sonra uygulamayı emülatörden silip emülatörü tekrar çalıştırmalıyız. Böylece iziniteyit edebiliriz. 
+
+## RETROFIT AŞAMALARI
+
+> Retrofit'te gelen verinin hangi formatta geleceğini ve hangi değişkene atanacağınıda söylememiz gerekiyor. Gelen verideki değişken ismi ile bizim kodlarda kullandığımız isim farklı o yüzden bunu belirtmemiz gerekiyor.
+
+![image](https://user-images.githubusercontent.com/109730490/192270702-565b9cb3-e3b7-4d63-bc10-55b940e1ab57.png)
+
+![image](https://user-images.githubusercontent.com/109730490/192270769-02520333-de64-42ae-96b3-e6725e0b3f18.png)
+
+> Verideki değişken isimlerini SerializedName olarak ekledik.
+
+> Retrofit bizden arayüzle çalışmamızı istediği için birarayüz oluşturacağız. Bundan önce Retrofit servisi için bir paket oluşturacağız. Sonra içinde bir interface dosyası açıyoruz. (kotlin classfile > interface) ve FoodAPI ismini vereceğiz:
+
+
+
+> Request'ler yani istekler birkaç farklı şekilde kategorilendirilebilir. 
+
+- GET : Verileri çekeceksek, bir API'dan ya da sunucudan verileri çekip kendi uygulamamız içinde kullanacaksak bu GET isteği olur. 
+
+- POST : Genelde sunucuya bir veri yollayacaksak POST isteği olur. 
+
+> Bu işlemleri yapmak için başka yollarda kullanılabilir fakat genelde GET ve POST kullanılır. 
+
+
+
+
 
 ## KAYNAKLAR
 
