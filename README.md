@@ -285,11 +285,43 @@ DATA CLASS: İnternetten ya da bir sunucudan veri çekeceksek ve tek yapmak iste
 
 - Live Data ve view model'ı her zaman birlikte kullanırız ki hem bize hem yaşam döngüsü açısından avantaj sağlasın hem de yaşam döngüsü içinde beraber çalıştığı view model ile beraber verilerin değişikliğini görünümlere bildirebilsin. Böylece günlerce uğraşıp yapabilceğimiz yapıları direkt olarak view model sınıfından ve live data sınıfından faydalanarak kolayca yapabiliyoruz. 
 
+## API (Application Programming Interface - Uygulama Programlama Arayüzü) NEDİR?
 
+> Bir arayüzdür ve iki sistem arasında iletişim kurar. Sunucudan programa veya programdan sunucuya veri akışı için kullandığımız yapılardır. 
 
+> Örneğin google'a weather api yazdığımızda çıkan sonuçlardan birine girdiğimizde gördüğümüz üzere bu api'ı kullanarak internetten bu verileri çekerek bir weather app yapabiliriz. 
 
+![image](https://user-images.githubusercontent.com/109730490/192239523-bcdafd88-0790-4fa6-aacf-4b590b262829.png)
 
+> API'lar çeşitli platformlara ait olabilirler. Örneğin bir fotoğraf paylaşma ya da haber platformuyuz, API'ımız olabilir. Developerlar bu API'ı kullanarak verilerimizi kendi uygulamalarına ya da sitelerine entegre etsin isteyebiliriz. API'lar ücretsiz ya da ücretli olabilir. 
 
+> Bu projede hazır olan ve değişmeyen bir veri kullanacağız. 
+
+> API'lar bazen ücretsizken 3 ay sonra ücretli hale gelebilir. 
+
+> Genelde sunucudan bir şey alıyorsak ya da sunucuya bir şey yolluyorsak bu JSON (Java Script Object Notation) formatında gelir. 
+
+## RETROFIT
+
+> İnternetten veri çekmek ve onunla bir işlem yapmak istiyorsak kullandığımız bir kütüphane. Android için HTTP isteği yapacağımız, web sitesine gideceğimiz, bilgi çekeceğimiz ya da yollayacağımız durumlarda kullanabiliriz. İstediğimizde projemize implemente ederek kullanabiliyoruz. 
+
+## RxJava
+
+> asenkron ve olay bazlı programları kullanmak ve gözlemlenebilir bazı yapılar oluşturmak için kullanıyoruz. 
+
+> Asenkron maddesi Retrofit içinde geçerli.
+
+> İnternetten veri indirirken bunu asenkron bir şekilde yapmalıyız. Yani senkron olmayan. Yani internetten veri indirirken kullanıcının arayüzünü bloklayıp verinin inmesini bekleyip diğer kodları sonra çalıştırmak giib bir durum söz konusu değil çünkü bu uygulamayı çökertir. 
+
+> Firebase'de SDK'nın kendisi bize asenkron fonksiyonaliteler sağladığı için bu tar işlemlerle uğraşılmadı. Çünkü veriyi çektiğimizde zaten asenkron çekiliyordu ve veri geldikten sonra ne yapılacağını yazabildiğimiz kod ve fonksiyonlar vardı. Fakat şuanda hazır bir SDK kullanmıyoruz bu yüzden projede retrofit'i kullanacağız. 
+
+> Projede arka planda veri çekilirken kullanıcı uygulamayı kullanmaya devam edebilecek ve uygulama kilitlenmeyecek veya çökmeyecek. 
+
+> Sadece retrofit bütün veriyi indirmemiz ve işlememiz için yeterli olacak fakat proje büyüyüp komplikeleşmeye başladığında RxJava'ya ihtiyaç artar çünkü RxJava tüm bu işlemleri daha verimli yapmamızı sağlıyor. 
+
+## PROJEYE İNTERNET İZNİ EKLEMEK
+
+> 
 
 ## KAYNAKLAR
 
