@@ -341,7 +341,7 @@ DATA CLASS: İnternetten ya da bir sunucudan veri çekeceksek ve tek yapmak iste
 
 > Retrofit bizden arayüzle çalışmamızı istediği için birarayüz oluşturacağız. Bundan önce Retrofit servisi için bir paket oluşturacağız. Sonra içinde bir interface dosyası açıyoruz. (kotlin classfile > interface) ve FoodAPI ismini vereceğiz:
 
-
+## REQUEST (GET - POST)
 
 > Request'ler yani istekler birkaç farklı şekilde kategorilendirilebilir. 
 
@@ -351,8 +351,31 @@ DATA CLASS: İnternetten ya da bir sunucudan veri çekeceksek ve tek yapmak iste
 
 > Bu işlemleri yapmak için başka yollarda kullanılabilir fakat genelde GET ve POST kullanılır. 
 
+## RxJava OBSERVABLE TİPLERİ
 
+![image](https://user-images.githubusercontent.com/109730490/192591727-e46aeffb-9fe1-4eff-9646-daf2b17f2834.png)
 
+> Yukarıdakilerin hepsi observable yani gözlemlenebilir. Hepsi bir observable oluşturuyor ve bu observable'da aldığımız veriler gözlemlenebiliyor. 
+
+> En çok kullanılanı observable. Observable 0 ya da birkaç eleman alır ve sonunda bir hata ya da başarı döndürür. 
+
+> Single ise bir tane single item alır veriyi bir kez çeker ve durur sonuç olarak bir hata mesajı ya da verinin kendisini döndürür. Veriyi bir ekz çekip kullanmak istediğimizde ideal bir senaryodur. 
+
+## Retrofit'in kendisini oluşturacağımız servisi yazma
+
+> Bunun için service paketinin içinde yeni bir kotlin class'ı açıp FoodAPIService olarak isimlendiriyoruz:
+
+![image](https://user-images.githubusercontent.com/109730490/192594607-fc501ad5-dec5-45da-808a-05e759fd4598.png)
+
+- NOT: Genelde android içinde değerini bir daha değiştirmeyeceğimiz string değişkenlerinin ismini büyük harflerle yazarız. (BASE_URL)
+
+![image](https://user-images.githubusercontent.com/109730490/192599062-e63e74ee-cdfa-4784-95c0-60a0569a0336.png)
+
+## RxJAva ve Disposable
+
+> disposable kullan at demektir.
+
+> Aslında bizim burada yapacağımız her istek bir disposable olacak. Çünkü çok fazla istek yapacağımız uygulamalar olabilir. Belki aynı fragment içinde 10 tane istek yapabiliriz. Ve lifecycle'a göre arkaplanda bu isteklerin devamlı açık kalması ya da devam etmesi hafıza yönetimi açısından zorluklar yaratabilir. Belirli bir yerden sonra bunlardan kurtulmamız gerekiyor ve disposable ne zaman işimiz biterse o zaman çağırıp kurtulabileceğimiz bir yapı ve bu RxJava'da. 
 
 
 ## KAYNAKLAR
