@@ -153,6 +153,8 @@ task clean(type: Delete) {
 
 > Bu layout'u build.gradle'da dependencies kısmına eklemeliyiz. Sonra kullanabiliriz. 
 
+> Swipe refresh layout'un kendine ait bir proggress bar'ı vardır. 
+
 ### PROGRESS BAR (Yükleniyor İkonu)
 
 ![image](https://user-images.githubusercontent.com/109730490/190859907-845ac830-3dc7-4291-8ae4-9fa258d8d18d.png)
