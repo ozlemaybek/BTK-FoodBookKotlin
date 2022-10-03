@@ -379,6 +379,21 @@ DATA CLASS: İnternetten ya da bir sunucudan veri çekeceksek ve tek yapmak iste
 
 > Aslında bizim burada yapacağımız her istek bir disposable olacak. Çünkü çok fazla istek yapacağımız uygulamalar olabilir. Belki aynı fragment içinde 10 tane istek yapabiliriz. Ve lifecycle'a göre arkaplanda bu isteklerin devamlı açık kalması ya da devam etmesi hafıza yönetimi açısından zorluklar yaratabilir. Belirli bir yerden sonra bunlardan kurtulmamız gerekiyor ve disposable ne zaman işimiz biterse o zaman çağırıp kurtulabileceğimiz bir yapı ve bu RxJava'da. 
 
+## EKLENTİLER (EXTENSIONS)
+
+- Oluşturduğumuz paketlerden hiçbirine uymayan ama uygulamanın her tarafında kullanılabilecek, her türlü sınıfımızdan çağrılabilecek dosyalara util ismini veririz. Bu yüzden bu tip dosyaları bir util paketi açıp onun içine koyabiliriz. 
+
+> util isimli bir package açıp içine Util isimli bir kotlin file açtık. (Dikkat kotlin class değil kotlin file)
+
+![image](https://user-images.githubusercontent.com/109730490/193585028-2e9eb54f-3d69-46f6-9b90-9b2c80a26f22.png)
+
+> Eklenti; daha önce yazdığımız sınıflara yaptığımız eklentiler. Bunu sadece kendi sınıflarımıza değil herhangi bir yere yapabiliyoruz. Örneğin imageView sınıfına veya INT sınıfına ya da String sınıfına herhangi bir fonksiyon ekleyebiliriz. Yaptığım eklenti gidip String class'ının kodlarını değiştirmez sadece ona bir eklenti yazmış oluyorum. 
+
+![image](https://user-images.githubusercontent.com/109730490/193587696-bda84f77-3fce-414e-8671-966c250e3673.png)
+
+> Kotlin'İn bu özelliği sayesinde istediğimiz sınıf için bir eklenti yazabiliriz. 
+
+> Bu özelliği kullanarak glide'ı imageView'lara bir eklenti olarak tanımlamaya çalışacağız böylece bütün imageView'lar içinde çağırabileceğiz. Böyle yapmak zorunda değiliz ama bu şekilde yapmak bize kolaylık sağlayacak. 
 
 ## KAYNAKLAR
 
