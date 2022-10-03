@@ -58,6 +58,20 @@ class FoodListFragment : Fragment() {
         recyclerViewID.layoutManager = LinearLayoutManager(context)
         recyclerViewID.adapter = recyclerFoodAdapter
 
+        // Kullanıcı ekranı aşağı kaydırıp refresh ettiğinde ne olacak bunu belirttiğimiz kod bloğu:
+        swipeRefreshLayoutID.setOnRefreshListener {
+            // Ekran aşağı kaydırıldığında verileri yenilemek istiyoruz.
+            progressBarID.visibility = View.VISIBLE
+            textViewID.visibility = View.GONE
+            recyclerViewID.visibility = View.GONE
+            // Yazdığımız refreshData() metodu verileri tekrar internetten çekiyordu.
+            viewModel.refreshData()
+
+            // swipe refresh layout'a ait proggresBar'a ihityacımız olmadıpı için false yaptık.
+            // Bizim zaten ekranın ortasına yerleştirdiğimiz bir progress bar'ımız varç
+            swipeRefreshLayoutID.isRefreshing = false
+        }
+
         observeLiveData()
 
     }

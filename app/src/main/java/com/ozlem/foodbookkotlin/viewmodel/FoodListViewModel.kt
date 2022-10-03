@@ -4,7 +4,10 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.ozlem.foodbookkotlin.model.Food
 import com.ozlem.foodbookkotlin.service.FoodAPIService
+import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
+import io.reactivex.observers.DisposableSingleObserver
+import io.reactivex.schedulers.Schedulers
 
 class FoodListViewModel : ViewModel() {
     // Mutable: değiştirilebilir demek
@@ -34,8 +37,37 @@ class FoodListViewModel : ViewModel() {
         // Gözlemlenebilir bir şey yaptığımız için nerede izleyeceğiz, nerede gözlemleyeceğiz, nerede kayıt olacağız gibi şeyleri
         // subscribeOn()'da söylememiz gerekiyor.
         // disposable.add dediğimizde içine parametre olarak bir disposable isteyecek:
+        // subscribeOn; asenkron bir şekilde Single'a subscribe olur. Yani oluşturulacak ve döndürülecek Single observable'ına,
+        // Single gözlemlenebilir objesine subscribeOn ile kayıt oluyoruz.
+        // subscribeOn() içinde de nerede kayıt olacağımızı belirtiyoruz.
+
+        /* main thread'i bloklamadan arka planda farklı thread'lerde işlem yapabiliyoruz ve buradada bunu yapacağız.
+        * Veri geldi mi, işlendi mi, gözlemlenebiliyor mu, değişti mi bunları arka planda yapmamız gerekiyor.
+        * Bu yüzden Schedulers.newThread() ile yeni bir thread açıyoruz.
+        * Fakat observOn yani gözlemleme kısmını mainThread yani ana thread'de yapmamız gerekiyor.
+        * mainThread: Kullanıcınında kullandığı ana thread'dir. Farklı thread çeşitleri vardır.
+        * En son .subscribeWith() diyereke bir disposable oluşturuyoruz. İçine parametre olarak bir observer isteyecek.   */
         disposable.add(
-            foodApiService.getData().subscribeOn()
+            foodApiService.getData()
+                .subscribeOn(Schedulers.newThread())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeWith(object : DisposableSingleObserver<List<Food>>(){
+                    override fun onSuccess(t: List<Food>) {
+                        // Başarılı olursa:
+                        foods.value = t
+                        foodErrorMessage.value = false
+                        foodLoading.value = false
+                    }
+
+                    override fun onError(e: Throwable) {
+                        // Hata alırsak:
+                        foodErrorMessage.value = true
+                        foodLoading.value = false
+                        // Hata alırsak hatayılogcat'te görmemizi sağlayacak:
+                        e.printStackTrace()
+                    }
+
+                })
         )
     }
 }
