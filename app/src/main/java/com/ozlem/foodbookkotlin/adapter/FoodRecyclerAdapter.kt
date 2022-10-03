@@ -7,6 +7,8 @@ import androidx.navigation.Navigation
 import androidx.recyclerview.widget.RecyclerView
 import com.ozlem.foodbookkotlin.R
 import com.ozlem.foodbookkotlin.model.Food
+import com.ozlem.foodbookkotlin.util.doPlaceholder
+import com.ozlem.foodbookkotlin.util.downloadImage
 import com.ozlem.foodbookkotlin.view.FoodListFragmentDirections
 import kotlinx.android.synthetic.main.food_recycler_row.view.*
 
@@ -28,12 +30,15 @@ class FoodRecyclerAdapter (val FoodList : ArrayList<Food>) : RecyclerView.Adapte
         // name : Food.kt'deki name:
         holder.itemView.foodNameID.text = FoodList.get(position).name
         holder.itemView.foodCalorieID.text = FoodList.get(position).calorie
-        // Görsel kısmı eklenecek.
+
 
         holder.itemView.setOnClickListener {
             val action = FoodListFragmentDirections.actionFoodListFragmentToFoodDetailFragment(0)
             Navigation.findNavController(it).navigate(action)
         }
+        // Görsel kısmı eklemesi:
+        // downloadImage() : url istiyor:
+        holder.itemView.imageViewID.downloadImage(FoodList.get(position).image, doPlaceholder(holder.itemView.context))
     }
 
     override fun getItemCount(): Int {
