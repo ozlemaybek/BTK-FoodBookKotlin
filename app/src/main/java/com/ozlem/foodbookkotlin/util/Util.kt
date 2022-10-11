@@ -32,7 +32,8 @@ fun ImageView.downloadImage(url : String? , placeholder: CircularProgressDrawabl
     // load: url'yi vereceğiz.
     // into: nereye yükleyeceğiz
     // this burada ImageView'a referans veriyor.
-    Glide.with(context).setDefaultRequestOptions(options).load(this)
+    Glide.with(context).setDefaultRequestOptions(options).load(url).into(this)
+
 }
 
 /* CircularProgressDrawable; swipe refresh layout'tan gelir.
