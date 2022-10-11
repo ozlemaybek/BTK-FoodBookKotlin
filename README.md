@@ -450,7 +450,11 @@ fun doPlaceholder(context : Context) : CircularProgressDrawable {
 
 ![image](https://user-images.githubusercontent.com/109730490/193611539-f8132d59-efc7-4e5d-a236-15aa105731f9.png)
 
+## ROOM
 
+> Room; SQLite özelliklerini ve komutlarını kullanabilmemiz için geliştirilmiş bir kütüphanedir. Sadece SQLite ile uygulama yapabiliriz ama android eğer SQLite kullanıyorsak Room'uda entegre etmemizi öneriyor çünkü uygulamayı daha verimli hale getiriyor. 
+
+> Bu bölümde internetten indirdiğimiz verileri SQLite'a kaydedip kendi oluşturduğumuz algoritmaya göre belli bir zaman sonra tekrar internetten çekilmesini aksi durumda SQLite'tan çekilmesini sağlayacağız. 
 
 ## KAYNAKLAR
 
