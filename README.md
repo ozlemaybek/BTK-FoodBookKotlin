@@ -16,7 +16,7 @@
 - food_graph.xml
 - food_recyler_row.xml (layout resources file)
 
-> Projedeki Teknolojiler: MVVM, Retrofit, Room, DataBinding
+> Projedeki Teknolojiler: MVVM, Retrofit, SQLite, Room, RxJava, DataBinding
 
 > ROOM: SQLite ile çalışmak için kullandığımız bir JetPack ögesidir. 
 
@@ -159,7 +159,7 @@ task clean(type: Delete) {
 
 ![image](https://user-images.githubusercontent.com/109730490/190859907-845ac830-3dc7-4291-8ae4-9fa258d8d18d.png)
 
-## RecycleView tasarımı
+## RecyclerView tasarımı
 
 > Bu projede verileri çekeceğimiz link githubdan JSON formatında geliyor. JSON bir gösterim biçimidir. JSON'ı tüm modern programlama dilleri kendi kütüphaneleri ile işleyebilecek yeteneğe sahipler. 
 
@@ -253,7 +253,8 @@ task clean(type: Delete) {
 
 > Sonra bunu bir data sınıfına çevirelim. 
 
-DATA CLASS: İnternetten ya da bir sunucudan veri çekeceksek ve tek yapmak istediğimiz o verilerden bir model oluşturmaksa bizim için ideal bir yapı sunuyor. Bir data class oluşturduğumuzda primary constructor kullanmalıyız yoksa hata verir çünkü data class'ın amacı model oluşturmak. Primary constructor'ın içine isteyeceğimiz değişkenleri yazmalıyız. 
+## DATA CLASS
+> İnternetten ya da bir sunucudan veri çekeceksek ve tek yapmak istediğimiz o verilerden bir model oluşturmaksa bizim için ideal bir yapı sunuyor. Bir data class oluşturduğumuzda primary constructor kullanmalıyız yoksa hata verir çünkü data class'ın amacı model oluşturmak. Primary constructor'ın içine isteyeceğimiz değişkenleri yazmalıyız. 
 
 ![image](https://user-images.githubusercontent.com/109730490/191914589-08fe2cba-7693-4fe7-92ac-2201a8982d69.png)
 
