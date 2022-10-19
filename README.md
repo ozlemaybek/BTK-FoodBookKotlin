@@ -456,6 +456,33 @@ fun doPlaceholder(context : Context) : CircularProgressDrawable {
 
 > Bu bölümde internetten indirdiğimiz verileri SQLite'a kaydedip kendi oluşturduğumuz algoritmaya göre belli bir zaman sonra tekrar internetten çekilmesini aksi durumda SQLite'tan çekilmesini sağlayacağız. 
 
+> SQLite'ın içerisinde tablolar, kolonlar ve satırlar var. Kolonların ne olacağını söylememiz gerekiyor, hangi değerlerin kolon olarak kaydedileceğini söylememiz gerekiyorki değerler ilgili kolonun altına yerleştirilebilsin. 
+
+> Room'a ilgili data sınıfının tablo olarak kullanılacağını söylememiz gerekiyor. 
+
+> Bunu yapmak için Food.kt isimli dosyayı açalım. Ve sınıfın başına @Entity yazalım. Bu androidx.room'dan geliyor. Bunu yaptığımızda bir sınıfı Entity olarak işaretlemiş oluyoruz ve bu sınıf artık SQLite'a bir tablo olarak kaydedilmek için hazır hale gelir. Ayrıca her Entity'de mutlaka primary key bulundurmamız gerekir. Primary key dediğimiz şey bir id yani kaydedeceğimiz verilere bir id vermemiz gerekiyor. 
+
+> Çektiğimiz verilerde id yok ama biz oluşturabiliriz. Zaten SQLite id'leri otomatik olarak artırabiliyor. 
+
+> Artık SQLite içindeki table'ımızın adı Food olacak. 
+
+![image](https://user-images.githubusercontent.com/109730490/196647537-98925aff-5ac1-4e3f-94ef-b7277d5040b6.png)
+
+> Fakat istersem eğer şekildeki gibi başka bir table adı girebilirim. 
+
+![image](https://user-images.githubusercontent.com/109730490/196647631-ba44011e-0b46-4885-80b4-feb960491c83.png)
+
+> Bazı durumlarda benimIsim değişkeninin ismi diğerlerinden farklı olduğu için hata verdiğini görebiliriz ve hata değişken ismini diğerleriyle aynı şekilde "isim" olarak güncellemeden gitmez. Hata verip değişken ismini bulamadım derse bu şekilde çözmeliyiz. Bunu yapmak için değişkenin üzerine tıklayıp refactor>rename yaparak değiştirebiliriz. 
+
+![image](https://user-images.githubusercontent.com/109730490/196648661-abe4159a-b8c7-4971-a955-5c9cae7c891f.png)
+
+> Primary key'i oluşturup parantez açtığımızda kendim otomatik olarak oluşturayım mı diye soruyor. Bunun için autoGenerate = true dememiz gerekiyor. 
+
+> FoodListFragment'tan FoodDetailFragment'amutlaka bir id atamamız gerekecek. Çünkü tıkladığımız verinin hangi veri olduğunu id ile ayrıştıracağız. (uuid)
+
+![image](https://user-images.githubusercontent.com/109730490/196652721-8622dfbc-df56-47a4-82e3-c62b371ccb87.png)
+
+
 ## KAYNAKLAR
 
 - [BTK AKADEMİ](https://www.btkakademi.gov.tr/portal/course/kotlin-ile-android-mobil-uygulama-gelistirme-ileri-seviye-10359)
