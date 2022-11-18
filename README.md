@@ -574,6 +574,21 @@ fun doPlaceholder(context : Context) : CircularProgressDrawable {
 
 ### ROOM'da Database Oluşturmak
 
+> Önce service paketinin içinde yeni bir kotlin sınıfı oluşturalım sonra ismini FoodDatabase koyalım. 
+
+![image](https://user-images.githubusercontent.com/109730490/202741758-dc23645f-a52f-45c0-8c64-1cbf95c81a40.png)
+
+![image](https://user-images.githubusercontent.com/109730490/202741858-076cc898-3a0f-4747-bf93-6907a262a5e8.png)
+
+> Bu yapıda hem sınıfımız hem de içindeki fonksiyonlar abstract olmalıdır çünkü kural böyledir. 
+
+> Normal kullanımdan farklı olarak yapacağımız işlemleri ve veritabanının kendisini bir singleton olarak yazacağız. Bunun için sadece fazladan bir satır kod ekleyeceğiz. Bunun sebebi ileride yapacağımız karmaşık uygulamalar için öğrendiğimiz teknolojileri en efektif halde kullanmayı öğrenmeye çalışmamız. 
+
+> Örneğin bu veritabanına aynı anda farklı thread'lerden ulaşılması sorunlara yol açabilir. Çünkü bir veri için aynı anda değişiklik yapılmaya çalışılabilir bu da database'de conflict yani çakışmaya neden olur. Bu gibi durumlarda asenkron değil senkron işlem yapılması gerekir yani önce database'in işinin bitirilmesi sonra diğer işlemlere geçilmesi gerekir.
+
+> Önce sınıfın başına abstract yazalım ve başına @Database ekleyelim bu key ROOM'dan geliyor ve başına yazdığımız sınıfı Room Database'ine çeviriyor. 
+
+
 
 
 ## KAYNAKLAR
