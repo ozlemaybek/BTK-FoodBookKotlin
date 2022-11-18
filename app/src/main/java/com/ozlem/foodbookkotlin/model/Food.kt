@@ -33,7 +33,7 @@ data class Food (
     val image : String?
     ){
 
-    // Yukarıdaki bilgileri primary constructor'a ekledik. Fakat primary key'i class'ın bosy'sine ekleyeceğiz:
+    // Yukarıdaki bilgileri primary constructor'a ekledik. Fakat primary key'i class'ın body'sine ekleyeceğiz:
     // oluşturduğumuz primary key'i uuid içine atadık.
     // Artık primary key otomatik olarak oluşturulacak ve eklediğimiz verilerin içerisine id olrak atanacak.
     @PrimaryKey(autoGenerate = true)
