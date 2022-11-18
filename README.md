@@ -483,6 +483,98 @@ fun doPlaceholder(context : Context) : CircularProgressDrawable {
 
 ![image](https://user-images.githubusercontent.com/109730490/196652721-8622dfbc-df56-47a4-82e3-c62b371ccb87.png)
 
+## Ne Yapıyoruz?
+
+![image](https://user-images.githubusercontent.com/109730490/202717301-59252fcc-7303-4aa0-8aeb-77b2ec53b3ac.png)
+
+> Bir veri tabanımız var ve veri tabanımızın içinde entity'ler var. Entity'leri oluşturduğumuz tablolar olarak düşünebiliriz. 
+
+> Data Access Object (DAO): Bir arayüz olarak çalışır. Veritabanıyla iletişimimizi sağlar. Veritabanına bir şey eklenecekse veya veritabanından bir şey çekilecekse bunları execute sql gibi komutlarla değil direkt arayüzümüz aracılığıyla yapıyoruz ve bu arayüz data access object. 
+
+## COROUTINES
+
+> Coroutine'ler kotlin ile birlikte gelen bir yenilik. Threading işlemlerini yapmamızda kolaylık sağlıyor. 
+
+> Amacı "managing long running tasks" 1 salise'de yapılmayacak görevler. 
+
+> Biz hep internetten veri çekince uzun süreceğini düşünüyorduk fakat işlemin uzun sürmesindeki tek kriter internetten çekilmesi değil. Görüntü işlemek, yerel veritabanından çok büyük bir veri çekmek gibi işlemlerde uzun sürebilir. 
+
+> Uygulamamızda 10 tane besin var yani aslında yapacağımız işlemi coroutine ile yapıp yapmamamızın pek bir önemi yok her halükarda hızlı olacak. Ama elimizde 20.000 tane veri olabilirdi. İnternetten çok büyük boyutta veriler çekip bunları yerel veritabanımıza kaydetmek zorunda kalabilirdik. 
+
+> Sonuç olarak uzun sürecek bir işlem yapıyorsak o zaman threading kavramına girmemiz gerekiyor. Bu noktada coroutine'ler bize kolay bir yapı sağlıyor. 
+
+### suspend fonksiyonları
+
+> Coroutine'lerin içinde istediğimiz zaman durdurulup istediğimiz zaman başlatılabilen fonksiyonlardır. Suspend fonksiyonlar sadece coroutine scope'unda çağrılabiliyorlar ya da başka bir suspend fonksiyonu içerisinden çağrılabiliyorlar. 
+
+## thread havuzu
+
+> Main Thread'de kullanıcı arayüzü işlemlerini yaparız. 
+
+> IO Thread'de internetten bir veri çekerken yaptığımız input output işlemlerini yaparız. 
+
+> Default Thread'de CPU'yu zorlayabilecek işlemler yapılır. Örneğin; görüntü işleme, çok büyük bir listeyi baştan sona dizmek. 
+
+
+## Data Access Object Aşamaları
+
+> Önce service paketinin içinde yeni bir interface (arayüz) oluşturalım ve ismini FoodDAO koyalım. 
+
+![image](https://user-images.githubusercontent.com/109730490/202729205-f6900e3f-5972-4ec5-8e8d-9b14108b2f9a.png)
+
+![image](https://user-images.githubusercontent.com/109730490/202729260-f34772b0-147b-4241-9db9-186f53d9ea09.png)
+
+![image](https://user-images.githubusercontent.com/109730490/202729578-7e4f0202-62f9-464c-9aec-e5673232913a.png)
+
+> Şimdi bütün veritabanına ulaştığımız, verileri eklediğimiz ve verileri çektiğimiz işlemleri bu interface'in içinde yapacağız. Yani aslında bu interface bizim "data access object" dediğimiz veri erişim objemiz olacak. 
+
+> Bu interface'in başına @Dao yazarak bu interface'in bir Dao olduğunu belirtelim :
+
+![image](https://user-images.githubusercontent.com/109730490/202740034-c55f456d-f3b0-4d42-957a-e442437829e7.png)
+
+### Veri Ekleme İşlemi
+
+> Daha önce bir insert işlemi yapmak için aşağıdaki gibi tek tek yapmamız gerekiyordu:
+
+![image](https://user-images.githubusercontent.com/109730490/202730238-74ca0727-6906-414e-8b8f-e00acbe29248.png)
+
+> Fakat şimdi @Insert yazıp alt satırda fonksiyonun ismini söylememiz, içerisine ne alacak, bize geri ne döndürecek bunları söylememiz yeterli. Bu fonksiyonları suspend fonksiyonu olarak oluşturacağım. Bu özellik ROOM'dan geliyor INSERT INTO işlemini yapmamızı sağlıyor. 
+
+> vararg : Birden fazla ve istediğimiz sayıda objeyi fonksiyona vermemizi sağlar. 
+
+> Eklemeler Food.kt'de oluşturduğumuz entity'ye yani Food tablosuna eklenecek. 
+
+![image](https://user-images.githubusercontent.com/109730490/202732870-88a97adf-40a3-47ca-aeb7-14e45142c734.png)
+
+> Sonuç olarak veri ekleme işlemi :
+
+![image](https://user-images.githubusercontent.com/109730490/202734877-6d25a7af-a9dc-42a8-bd25-6d74ef2f8330.png)
+
+### Veri Çekme İşlemi
+
+> Veri çekme işlemine konsept olarak query denir. Bu yüzden @Query kullanıyoruz. Fakat birden fazla @Query var biz ROOM olanı seçmeye dikkat etmeliyiz. 
+
+> @Query() şeklinde parantez açtığımızda bizden veriyi nereden çekeceğimizi yazmamızı istiyor. 
+
+> Bu şekilde yazdığımızda Food'u algılayıp getiriyor öünkü zaten Food'u entity olarak işaretlemiştik. 
+
+![image](https://user-images.githubusercontent.com/109730490/202736757-95acc402-7569-43ef-9556-834eac445343.png)
+
+![image](https://user-images.githubusercontent.com/109730490/202736798-7560cdd0-05d9-4cda-8834-2027eb472ee7.png)
+
+> Sonuç olarak veri çekme işlemi:
+
+![image](https://user-images.githubusercontent.com/109730490/202740206-0f7a8b97-cc70-4b3a-bc5a-f6c9dc23b743.png)
+
+> Veri Silme İşlemi
+
+![image](https://user-images.githubusercontent.com/109730490/202740283-8431f4cd-8c55-45c0-a9c3-83fe835544e2.png)
+
+> Şimdi database'in kendisini oluşturmamız gerekiyor.
+
+### ROOM'da Database Oluşturmak
+
+
 
 ## KAYNAKLAR
 
