@@ -645,8 +645,61 @@ abstract class FoodDatabase : RoomDatabase(){
     
 }
 ```
-> Artık database'i oluştrduk ve kullanmaya hazırız. 
+> Artık database'i oluştrduk ve kullanmaya hazırız. Database'i viewmodel'ın içerisinde kullanacağız. 
 
+> Şimdi FoodListViewModel.kt'ye gidelim. Önce aşağıdaki resimde görüldüğügübü başarılı olduğu durumda yapılacakları yeni bir fonksiyon yazıp onun içine aldık:
+
+![image](https://user-images.githubusercontent.com/109730490/202846649-2cb12bb7-d108-4485-8303-b536660c3cb9.png)
+
+> Ve sildiğimiz yerde aşağıda tanımladığımız fonksiyonu çağırdık:
+
+![image](https://user-images.githubusercontent.com/109730490/202846681-10685bfc-e2ca-4442-89ff-4a1c8b9919aa.png)
+
+> Şimdi bir tane sınıf oluşturacağız ve o sınıfın içinde coroutine işlemlerini yapacağız sonradabu sınıfı kullanacağımız sınıfa extend edeceğiz. Bunu yapma sebebimiz coroutine'i sadece bir sınıfta kullanmayacak olmamız. Tğm viewmodel'larda kullanabilmek için coroutine işlemini bir sınıfta yapıyoruz ve coroutine kullanacağımız sınıfa bu sınıfı extend ediyoruz. Aslında tek tek tüm viewmodel'larda bu işlemi yapabiliriz ama verimsiz olur.
+
+> Şimdi coroutine uygulayan bir sınıf oluşturalım. Bunun için viewmodel paketinin içinde yeni bir kotlin sınıfı oluşturalım:
+
+![image](https://user-images.githubusercontent.com/109730490/202847065-159b6db4-3529-49af-aaaa-9d9ac2674e78.png)
+
+![image](https://user-images.githubusercontent.com/109730490/202847079-e99bb117-5f5c-48e9-b958-9fe41465fd05.png)
+
+> BaseViewModel olarak isimlendirdiğimiz sınıfta sadece coroutine fonksiyonlarını yazacağız, coroutine temelini atacağız ve sonrada bunu diğer viewmodel'lara extend edeceğiz. 
+
+> Bu sınıfın bir AndroidViewModel olduğunu söyleyelim. ViewModel değil AndroidViewModel dememizin nedeni uygulamamızın context'i ile çalışması:
+
+![image](https://user-images.githubusercontent.com/109730490/202847256-ed1ff3aa-e58e-40de-ab57-21f5791e042f.png)
+
+> İkinci parametre olan CoroutineScope'u ekledikten sonra class'a sap tık yapıp implement members deyip member'ı eklememiz gerekiyor:
+
+![image](https://user-images.githubusercontent.com/109730490/202847377-29385b51-5d3c-422c-beb7-5dbcfdf615f5.png)
+
+![image](https://user-images.githubusercontent.com/109730490/202847391-ba40b9fe-58ff-49f3-adf1-77a374552bfd.png)
+
+![image](https://user-images.githubusercontent.com/109730490/202847439-163c6b5e-4622-48a8-bb30-e009b4987507.png)
+
+> Önce Job nedir öğrenelim:
+
+![image](https://user-images.githubusercontent.com/109730490/202847480-9d564bd5-8bae-469b-8095-f69ef3f56af2.png)
+
+> Job coroutine ile ilgilidir. Burada Coroutine içerisinde ne işi yapacağımızı belirtiyoruz. 
+
+> BaseViewModel.kt'nin son hali:
+
+![image](https://user-images.githubusercontent.com/109730490/202848362-55426e42-534c-4edb-b9a5-a4a9b27c5a11.png)
+
+> Şİmdi FoodListViewModel'a gidelim ve 
+
+![image](https://user-images.githubusercontent.com/109730490/202848311-6dfd28e2-d436-43d8-84c4-94204627ad83.png)
+
+> yukarıdaki halinden aşağıdaki haline çevirelim
+
+![image](https://user-images.githubusercontent.com/109730490/202848369-7a660afb-1186-4495-8981-2eb92fe286e1.png)
+
+> FoodListViewModel.kt'de sqlHide() metoduna gidelim. Artık launch dediğimizde coroutine scope oluşturuluyor. Bunu yaptığımızda yeni bir coroutine oluşturulur ve güncel thread neyse onu bloklamaz ve işlemleri farklı bir thread'de yapar ve buradaki coroutine'i bir iş olarak çalıştırır. Eğer coroutine iptal edilirse işte (job) iptal edilir. Artık launch ile oluşturduğumuz coorutine scope'te suspend fonksiyonları çağırmak gibi işlemlerimizi yapabiliriz. 
+
+> FoodListViewModel.kt deki sqlHide() metodu
+
+![image](https://user-images.githubusercontent.com/109730490/202849360-51f97fc1-4184-43e5-a3f4-b856f0e0f392.png)
 
 
 ## KAYNAKLAR
