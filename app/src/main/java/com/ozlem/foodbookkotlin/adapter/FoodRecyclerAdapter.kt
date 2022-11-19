@@ -33,7 +33,7 @@ class FoodRecyclerAdapter (val FoodList : ArrayList<Food>) : RecyclerView.Adapte
 
 
         holder.itemView.setOnClickListener {
-            val action = FoodListFragmentDirections.actionFoodListFragmentToFoodDetailFragment(0)
+            val action = FoodListFragmentDirections.actionFoodListFragmentToFoodDetailFragment(FoodList.get(position).uuid)
             Navigation.findNavController(it).navigate(action)
         }
         // Görsel kısmı eklemesi:

@@ -9,6 +9,8 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.ozlem.foodbookkotlin.R
+import com.ozlem.foodbookkotlin.util.doPlaceholder
+import com.ozlem.foodbookkotlin.util.downloadImage
 import com.ozlem.foodbookkotlin.viewmodel.FoodDetailViewModel
 import com.ozlem.foodbookkotlin.viewmodel.FoodListViewModel
 import kotlinx.android.synthetic.main.food_recycler_row.*
@@ -39,18 +41,17 @@ class FoodDetailFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        // providersOf kullanarak başlatalım:
-        viewModel = ViewModelProvider(this).get(FoodDetailViewModel::class.java)
-        viewModel.getRoomData()
-
         // argument'ları alalım:
         // argument'lar varsa bize it içerisinde nullable olmadan veriliyor:
         arguments?.let {
             // FoodDetailFragmentArgs: navigation framework'ünün bizim için otomatik olarak oluşturduğu sınıf
             // fromBundle: Hangi bohçadan alacak (Bundle bohça/demet demek)
             foodID = FoodDetailFragmentArgs.fromBundle(it).foodArgumentID
-            println(foodID)
         }
+
+        // providersOf kullanarak başlatalım:
+        viewModel = ViewModelProvider(this).get(FoodDetailViewModel::class.java)
+        viewModel.getRoomData(foodID)
 
         observeLiveData()
     }
@@ -63,6 +64,10 @@ class FoodDetailFragment : Fragment() {
                 foodCarbohydrate_id.text = it.carbohydrate
                 foodOil_id.text = it.oil
                 foodProtein_id.text = it.protein
+                // Detay ekranında doğru resmin görünmesini sağlayalım:
+                context?.let {
+                    foodImageID.downloadImage(Food.image, doPlaceholder(it))
+                }
             }
         })
     }

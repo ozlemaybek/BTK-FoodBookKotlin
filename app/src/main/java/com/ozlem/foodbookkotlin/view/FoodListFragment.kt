@@ -64,8 +64,9 @@ class FoodListFragment : Fragment() {
             progressBarID.visibility = View.VISIBLE
             textViewID.visibility = View.GONE
             recyclerViewID.visibility = View.GONE
-            // Yazdığımız refreshData() metodu verileri tekrar internetten çekiyordu.
-            viewModel.refreshData()
+            // Yazdığımız refreshData() metodu verileri tekrar internetten çekiyordu. Onun yerine refreshFromInternet()
+            // yazıp her halükarda internetten çekmesini sağladık:
+            viewModel.refreshFromInternet()
 
             // swipe refresh layout'a ait proggresBar'a ihityacımız olmadıpı için false yaptık.
             // Bizim zaten ekranın ortasına yerleştirdiğimiz bir progress bar'ımız varç

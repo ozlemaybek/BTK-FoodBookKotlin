@@ -1,11 +1,13 @@
 package com.ozlem.foodbookkotlin.viewmodel
 
 import android.app.Application
+import android.widget.Toast
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.ozlem.foodbookkotlin.model.Food
 import com.ozlem.foodbookkotlin.service.FoodAPIService
 import com.ozlem.foodbookkotlin.service.FoodDatabase
+import com.ozlem.foodbookkotlin.util.PrivateSharedPreferences
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.observers.DisposableSingleObserver
@@ -20,6 +22,9 @@ class FoodListViewModel(application: Application) : BaseViewModel(application) {
     val foodErrorMessage = MutableLiveData<Boolean>()
     // Eğer besin yükleniyorsa besin listesi içindeki proggress bar'ı görünür hale getireceğiz yükleniyorsa görünmez yapacağız.
     val foodLoading = MutableLiveData<Boolean>()
+    // 10 dk'yı nanoTime'a çevirelim: (nanotime saniye ve salise'dende küçük)
+    // 1000L'nin L'si long'dan geliyor.
+    // 10 dk'nın nanotime'a çevrilmesi:
     private var updateTime = 10 * 60 * 1000 * 1000 * 1000L
 
     private val foodApiService = FoodAPIService()
@@ -31,8 +36,40 @@ class FoodListViewModel(application: Application) : BaseViewModel(application) {
      */
     private val disposable = CompositeDisposable()
 
+    // Shared preferences objemizi oluşturalım:
+    private val privateSharedPreferences = PrivateSharedPreferences(getApplication())
+
     fun refreshData(){
+
+        // Geçen zamanı alalım:
+        val saveTime = privateSharedPreferences.getTime()
+        // Geçen zamanı koşullara göre değerlendirelim:
+        // 0L: 0'ın long olduğunu belirtmek için.
+        // System.nanoTime(): şuanki zamanı verir. Örneğin saat 04.00 gibi
+        if (saveTime != null && saveTime != 0L && System.nanoTime() - saveTime < updateTime){
+            //Sqlite'tan çek
+            getDataFromSQLite()
+        } else {
+            // 10 dk'dan fazla zaman geçmiş demektir.
+            // internetten çek:
+            getDataFromInternet()
+        }
+
+    }
+
+    fun refreshFromInternet(){
         getDataFromInternet()
+    }
+
+    private fun getDataFromSQLite(){
+        foodLoading.value = true
+
+        launch {
+
+            val foodList = FoodDatabase(getApplication()).foodDao().getAllFood()
+            showFoods(foodList)
+            Toast.makeText(getApplication(),"We get foods from ROOM",Toast.LENGTH_LONG).show()
+        }
     }
 
     private fun getDataFromInternet(){
@@ -58,6 +95,7 @@ class FoodListViewModel(application: Application) : BaseViewModel(application) {
                     override fun onSuccess(t: List<Food>) {
                         // Başarılı olursa:
                         sqlHide(t)
+                        Toast.makeText(getApplication(),"We get foods from Internet",Toast.LENGTH_LONG).show()
                     }
 
                     override fun onError(e: Throwable) {
@@ -106,5 +144,7 @@ class FoodListViewModel(application: Application) : BaseViewModel(application) {
             }
             showFoods(foodList)
         }
+        // işlem bittikten sonraki güncel zamanı kaydedelim:
+        privateSharedPreferences.saveTime(System.nanoTime())
     }
 }
