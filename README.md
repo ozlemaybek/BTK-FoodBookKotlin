@@ -574,9 +574,7 @@ fun doPlaceholder(context : Context) : CircularProgressDrawable {
 
 > Önce sınıfın başına abstract yazalım ve başına @Database ekleyelim bu key ROOM'dan geliyor ve başına yazdığımız sınıfı Room Database'ine çeviriyor. 
 
-> Neden Singleton yaptık:
-
--Farklı thread'lerden aynı anda sadece tek bir objeye ulaşılabilsin istiyoruz. Aslında companion object oluşturmak ve bunun içinde sadece bir tane obje oluşturmak bizim için yeterli oluyor ama bu defa farklı bir metodunu göreceğiz.
+> Neden Singleton yaptık: Farklı thread'lerden aynı anda sadece tek bir objeye ulaşılabilsin istiyoruz. Aslında companion object oluşturmak ve bunun içinde sadece bir tane obje oluşturmak bizim için yeterli oluyor ama bu defa farklı bir metodunu göreceğiz.
 
 ## FoodDatabase.kt
 
@@ -648,6 +646,8 @@ abstract class FoodDatabase : RoomDatabase(){
 }
 ```
 > Artık database'i oluştrduk ve kullanmaya hazırız. 
+
+
 
 ## KAYNAKLAR
 
