@@ -778,10 +778,127 @@ class PrivateSharedPreferences {
 
 ## View Binding Nedir ?
 
+> Databinding bir jetpack ögesidir. Verileri direkt olarak xml içeriisne bağlamamıza olanak tanır. 
 
+> Öncelikle build.gradle (app-module)'de databinding'i aktif hale getirmiştik:
 
+![image](https://user-images.githubusercontent.com/109730490/202868674-1fec4881-b690-45ce-aa71-18eece611677.png)
 
+> Kotlinde şu yapıyı hiç kullanmadık:
+ 
+![image](https://user-images.githubusercontent.com/109730490/202867708-a6244534-feab-4186-b78d-ff5ccc7c3b6d.png)
 
+> Java'da databinding kullanmadığımız sürece tek tek şu şekilde tanımlamamız gerekir: 
+
+![image](https://user-images.githubusercontent.com/109730490/202867759-0196ea71-0459-47f8-9c29-b3275358a204.png)
+
+> Fakat kotlinde databinding kullanmamamıza rağmen build.gradle'a ve bağlantı kurmak istediğimiz dosyaya bir satır ekleyerek xml ve dosya arasında objeleri bağlayabiliyoruz. 
+
+> FindViewById verdiğimiz id'leri bulmaya ve eşleştirmeye olanak tanıyor. Fakat bu maliyetli birdurum, arkaplanda sürekli hesaplama gerektiriyor. Hem bu maliyetlerden kurtulmak hem de daha verimli kod yazmak için veri bağlama olarak isimlendirdiğimiz data binding kütüphanesini kullanıyoruz. 
+
+> Örneğin xml'de direkt viewmodel'dan şu nesneyi getir şeklinde kullanabiliyoruz:
+
+![image](https://user-images.githubusercontent.com/109730490/202867906-eb10fdfb-a47a-4cf4-8a2e-3b48fdf047d3.png)
+
+![image](https://user-images.githubusercontent.com/109730490/202868321-d2143e0a-aa9d-4842-a45a-24ae624e9266.png)
+
+![image](https://user-images.githubusercontent.com/109730490/202868466-68a3c236-6e61-4b67-b2f0-7bf301755ee9.png)
+
+> Şimdi kodlara databinding kullandığımızı belirtmemiz gerekiyor ve zaten bunun için otomatik olarak hazır sınıflar oluşturuldu. 
+
+![image](https://user-images.githubusercontent.com/109730490/202868762-6c751d05-5bec-46b9-92d1-8a29de45e4fd.png)
+
+> FoodRecyclerAdapter.kt'de : 
+
+![image](https://user-images.githubusercontent.com/109730490/202869582-2788b1bf-0e71-43e6-aaf7-f22686bc37d6.png)
+
+![image](https://user-images.githubusercontent.com/109730490/202869179-f0ccf96a-2f6b-4ee7-9db7-ef5e2b071ce4.png)
+
+> Eğer ulaşabilmemiz gerektiği halde objelere ulaşamıyorsak build > rebuild project ya da file > invalid caches and restart
+
+![image](https://user-images.githubusercontent.com/109730490/202869828-8b40e731-9dc0-4ca3-9903-3b854d99331c.png)
+
+> Şu anda görselleri göremiyoruz v eürünlerin üstüne tıklayıp ürün detaya gidemiyoruz. Resim için xml içinde resim indirme fonksiyonu çalıştırmamız gerekiyor. 
+
+> Önce resim işini halledelim bunun için util.kt dosyasında yeni bir fonksiyon tanımlayacağız. Aşağıdaki fonksiyonu xml'de databinding ile birlikte kullanabilmek için başına @BindingAdapter ekledik:
+
+![image](https://user-images.githubusercontent.com/109730490/202870020-685034eb-44e1-4cac-93f9-9698387d6bc8.png)
+
+> Şimdi xml'de değiştirelim:
+
+![image](https://user-images.githubusercontent.com/109730490/202870265-af6eb84f-d379-4800-912f-63dbb54376e5.png)
+
+> Burada işaretli kısımda url'i vermiş olduk:
+ 
+![image](https://user-images.githubusercontent.com/109730490/202870408-fb5ce586-bffa-49dd-8651-4525ca331888.png)
+
+> Böylece databinding'te görsel indirme meselesini halletmiş olduk. 
+
+> Şimdi recyclerrow'da bir ürüne tıklayınca detay sayfasına nasıl gideriz bunu yapalım. 
+
+> Bunun en kolay yolu bir arayüz yazmaktır eğer bunu yaparsak tıklamaları özelleştirebiliriz. Bu arayüzü adapter paketinin içinde yazalım. Bunun için adapter paketiinin içinde yeni bir kotlin sınıfı oluşturalım ve interface'i seçelim ve ismini FoodClickListener koyalım. 
+
+![image](https://user-images.githubusercontent.com/109730490/202870768-ed58aa4d-6993-4ad3-82d7-3dc7f555a591.png)
+
+> Besine tıklama dinleyicisini food_recycler_row.xml'de tanımlayalım:
+
+![image](https://user-images.githubusercontent.com/109730490/202870809-083080ef-a140-498d-8793-565e73f92d42.png)
+
+> Artık listener'da değişken olarak tanımlanmış durumda ve istediğim yerde kullanabilirim. 
+
+> Besinin tıklandığını algılayabilmek için linear layout'un kendisine bir tane onClick metodu tanımlamalıyım. Fonksiyonu çağırmaya çalışmıyoruz referans vermeye çalışıyoruz bu yüzden :: kullandık:
+
+![image](https://user-images.githubusercontent.com/109730490/202870876-67c33426-c3e9-42da-963c-74dc5e7858b6.png)
+
+> Şimdi FoodRecyclerAdapter.kt'ye ilgili satırı eklemeliyiz:
+
+![image](https://user-images.githubusercontent.com/109730490/202870958-1e978d3d-33bd-43bf-b10a-a99a1e0f7602.png)
+
+> Bunu yaptıktan sonra bir hata alacağız oluşan kırmızı ampul'den implement members yapmalıyız. Eklendi :
+
+![image](https://user-images.githubusercontent.com/109730490/202871002-a5dd648e-9223-4cfd-856c-840c6c98e0e9.png)
+
+> uuid'lere ulaşmamız gerekiyor bu yüzden food_recycler_row.xml'de gizli bir textView tanımlayıp uuid'leri onun içine kaydedelim ve bunu kullanıcıya göstermeyelim. uuid normalde Int bir değer ama xml'de string'e çevirmemiz gerekiyor bu yüzden android:text="@{String.valueOf(food.uuid)}" şeklinde tuttuk. 
+
+![image](https://user-images.githubusercontent.com/109730490/202871229-803b64c8-66b4-43d1-bd39-78e7f014bc88.png)
+
+> Bu textview'un visibility'si gone olduğu için tasarım ekranındada görünmeyecektir. 
+
+> FoodRecyclerAdapter.kt deki fonksiyon:
+
+![image](https://user-images.githubusercontent.com/109730490/202871338-8163d420-15db-4295-aec7-c0e11e90daa9.png)
+
+> Artık ürünlere tıklayınca detay sayfası olması gerektiği gibi görünmeli:
+
+![image](https://user-images.githubusercontent.com/109730490/202871387-cdba2ec6-0009-4778-aae8-0a750f6933e7.png)
+
+> Ürün detay tarafındaki dataBinding'leride yapalım. 
+
+> Önce fragment_food_detail.xml'de şu eklemeyi yapalım:
+
+![image](https://user-images.githubusercontent.com/109730490/202871597-18add8c1-a61d-433b-bc6c-3c18016ae6f8.png)
+
+> Artık resim url'sini şu şekilde verevbiliriz:
+
+![image](https://user-images.githubusercontent.com/109730490/202871670-1ece313a-ef4c-4f8e-ad9c-ebde518a5e7b.png)
+
+> Diğerlerinide şunun gibi güncelliyorum:
+
+![image](https://user-images.githubusercontent.com/109730490/202871756-630d1f03-e61b-4483-be0e-4f1d993d064b.png)
+
+> Şimdi FoodDetailFragment.kt'ye gidelim:
+
+![image](https://user-images.githubusercontent.com/109730490/202871880-2d9fa932-43be-4f26-8b9c-b445651db3cb.png)
+
+![image](https://user-images.githubusercontent.com/109730490/202871888-5c69b2b5-29c1-4550-931f-2502f0844370.png)
+
+![image](https://user-images.githubusercontent.com/109730490/202871979-ee3f59d3-12bc-436a-b486-abfb0083a653.png)
+
+## PROJEYE AİT EKRAN GÖRÜNTÜLERİ
+
+![image](https://user-images.githubusercontent.com/109730490/202872051-92dbef85-75ab-405f-ba94-6b041b20ea37.png)
+
+![image](https://user-images.githubusercontent.com/109730490/202872064-4593b502-fe91-41c6-961e-895ca7c325ad.png)
 
 ## KAYNAKLAR
 
