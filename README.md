@@ -701,6 +701,87 @@ abstract class FoodDatabase : RoomDatabase(){
 
 ![image](https://user-images.githubusercontent.com/109730490/202849360-51f97fc1-4184-43e5-a3f4-b856f0e0f392.png)
 
+> Verileri sqlite'ta saklama kısmını hallettik sıra sqlite'tan veri çekmekte. 
+
+> Aslında shared preferences singleton çalışılması gereken bir yapı. Bu yüzden aynı singleton yapısını sharedpreferences içinde oluşturacağız. 
+
+> Önce util paketinin içinde bir kotlin class'ı oluşturalım. Ve ismini PrivateSharedPreferences koyalım.
+
+> Build gradle (app-module)'e ekleme yaptık:
+
+![image](https://user-images.githubusercontent.com/109730490/202856499-67fb68ad-e388-4c7b-b6d1-f0d7db55e5ec.png)
+
+![image](https://user-images.githubusercontent.com/109730490/202856506-18d854f7-a500-4205-876d-2b2f5753bd7f.png)
+
+> PrivateSharedPreferences ile işimiz bittikten sonra FoodListViewModel.kt'ye gelelim ve bir PrivateSharedPreferences oluşturalım:
+
+![image](https://user-images.githubusercontent.com/109730490/202859657-ba09e77c-be7c-4ded-b265-1e1b90e86538.png)
+
+> PrivateSharedPreferences.kt 
+
+```kotlin
+package com.ozlem.foodbookkotlin.util
+
+import android.content.Context
+import android.content.SharedPreferences
+import androidx.core.content.edit
+
+class PrivateSharedPreferences {
+
+    companion object {
+
+        private val TIME = "time"
+        // İlk başta sharedpreferences'ın değeri null olsun:
+        private var sharedPreferences : SharedPreferences? = null
+
+        // PrivateSharedPreferences'a ait bir instance oluşturduk ve null olarak initialize ettik.
+        @Volatile private var instance : PrivateSharedPreferences? = null
+        private val lock = Any()
+
+        // invoke fonksiyonu bize bir PrivateSharedPreferences döndürecek. (instance dönecek ama null mı değil mi kontrol edilecek.)
+        // null değilse instance döndürülecek ama null ise senkronize olarak aşağıdaki işlemleri yapacak.
+        operator fun invoke(context: Context) : PrivateSharedPreferences = instance ?: synchronized(lock) {
+            // ?: instance null mı değil mi diye kontrol ettik.
+            // null ise doPrivateSharedPreferences metodunu çalıştıracağım
+            instance ?: doPrivateSharedPreferences(context).also {
+                instance = it
+            }
+        }
+
+        // Diğer versiyonda database oluşturmuştuk bunda ise sharedpreferences oluşturacak.
+        private fun doPrivateSharedPreferences(context: Context): PrivateSharedPreferences{
+            sharedPreferences = androidx.preference.PreferenceManager.getDefaultSharedPreferences(context)
+            return PrivateSharedPreferences()
+        }
+
+    }
+
+    fun saveTime(time: Long){
+        sharedPreferences?.edit(commit = true){
+            putLong(TIME,time)
+        }
+    }
+
+    fun getTime() = sharedPreferences?.getLong(TIME,0)
+}
+```
+
+> Şimdi verileri istediğimiz zaman internetten istediğimiz zaman da ROOM'dan çekecek şekilde ayarlamamız gerekiyor. 
+
+> PrivateSharedPreferences.kt'ye geçen zamanı alan bir fonksiyon yazdık:
+
+![image](https://user-images.githubusercontent.com/109730490/202860240-4206ed45-c6a5-4ced-aaf8-ce1758a51d3e.png)
+
+> FoodListFragment.kt içinde aşağıdaki satırı ekledik ve swipe refresh layout aşağı kaydırılınca verilerin her halükarda internetten çekilmesini sağladık:
+
+![image](https://user-images.githubusercontent.com/109730490/202861544-cfa28517-ccd4-40ea-bae9-c11e0d3d09cb.png)
+
+## View Binding Nedir ?
+
+
+
+
+
 
 ## KAYNAKLAR
 
