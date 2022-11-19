@@ -5,10 +5,12 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.ozlem.foodbookkotlin.R
+import com.ozlem.foodbookkotlin.databinding.FragmentFoodDetailBinding
 import com.ozlem.foodbookkotlin.util.doPlaceholder
 import com.ozlem.foodbookkotlin.util.downloadImage
 import com.ozlem.foodbookkotlin.viewmodel.FoodDetailViewModel
@@ -24,6 +26,9 @@ class FoodDetailFragment : Fragment() {
     // Defining:
     private var foodID = 0
 
+    private lateinit var dataBinding : FragmentFoodDetailBinding
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -34,7 +39,10 @@ class FoodDetailFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_food_detail, container, false)
+        dataBinding = DataBindingUtil.inflate(inflater,R.layout.fragment_food_detail,container,false)
+        // return inflater.inflate(R.layout.fragment_food_detail, container, false)
+        return dataBinding.root
+
     }
 
     // Biz ekledik:
@@ -59,6 +67,8 @@ class FoodDetailFragment : Fragment() {
     fun observeLiveData(){
         viewModel.foodLiveData.observe(viewLifecycleOwner , Observer{ Food->
             Food?.let{
+                // DataBinding yokken:
+                /*
                 foodName_id.text = it.name
                 foodCalorie_id.text = it.calorie
                 foodCarbohydrate_id.text = it.carbohydrate
@@ -68,6 +78,9 @@ class FoodDetailFragment : Fragment() {
                 context?.let {
                     foodImageID.downloadImage(Food.image, doPlaceholder(it))
                 }
+               */
+                // DataBinding ile:
+                dataBinding.choosenFood = it
             }
         })
     }

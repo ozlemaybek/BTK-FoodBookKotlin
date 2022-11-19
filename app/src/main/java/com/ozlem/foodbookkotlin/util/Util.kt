@@ -3,6 +3,7 @@ package com.ozlem.foodbookkotlin.util
 import android.content.Context
 import android.widget.ImageView
 import androidx.constraintlayout.widget.Placeholder
+import androidx.databinding.BindingAdapter
 import androidx.swiperefreshlayout.widget.CircularProgressDrawable
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
@@ -50,4 +51,10 @@ fun doPlaceholder(context : Context) : CircularProgressDrawable {
         centerRadius = 40f
         start()
     }
+}
+// aşağıdaki fonksiyonu xml'de databinding ile birlikte kullanabilmek için başına @BindingAdapter ekledik:
+@BindingAdapter("android:downloadImageForBinding")
+fun downloadImageForBinding(view: ImageView, url : String?){
+    // yukarıda binding olmadığı durum için tanımladığımız downloadImage fonksiyonunu bunun için kuulandık:
+    view.downloadImage(url, doPlaceholder(view.context))
 }
