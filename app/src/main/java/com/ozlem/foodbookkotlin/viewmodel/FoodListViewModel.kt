@@ -1,15 +1,18 @@
 package com.ozlem.foodbookkotlin.viewmodel
 
+import android.app.Application
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.ozlem.foodbookkotlin.model.Food
 import com.ozlem.foodbookkotlin.service.FoodAPIService
+import com.ozlem.foodbookkotlin.service.FoodDatabase
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.observers.DisposableSingleObserver
 import io.reactivex.schedulers.Schedulers
+import kotlinx.coroutines.launch
 
-class FoodListViewModel : ViewModel() {
+class FoodListViewModel(application: Application) : BaseViewModel(application) {
     // Mutable: değiştirilebilir demek
     val foods = MutableLiveData<List<Food>>()
     // hata var mı yok mu:
@@ -54,9 +57,7 @@ class FoodListViewModel : ViewModel() {
                 .subscribeWith(object : DisposableSingleObserver<List<Food>>(){
                     override fun onSuccess(t: List<Food>) {
                         // Başarılı olursa:
-                        foods.value = t
-                        foodErrorMessage.value = false
-                        foodLoading.value = false
+                        sqlHide(t)
                     }
 
                     override fun onError(e: Throwable) {
@@ -69,5 +70,41 @@ class FoodListViewModel : ViewModel() {
 
                 })
         )
+    }
+
+    private fun showFoods(foodsList : List<Food>){
+        foods.value = foodsList
+        foodErrorMessage.value = false
+        foodLoading.value = false
+    }
+
+    private fun sqlHide(foodList : List<Food>){
+        // Burada insertAll fonksiyonunu direkt çağıramam çünkü o bir suspend fonksiyonu.
+        // Ancak bir coroutine kapsamında çapırabilirim.
+
+        launch {
+            // Önce DAO'muzu oluşturalım:
+            val dao = FoodDatabase(getApplication()).foodDao()
+            // veritabanında daha önceden bir şey kaldıysa diye önce tüm verileri siliyoruz.
+            dao.deleteAllFood()
+            // Şimdi yeni verilen besin listesini saklayalım:
+            // insertAll bizden verebildiğimiz kadar besin vermemizi ister
+            // bizde foodList isimli listeyi verdik toTypedArray() ile liste içerisindeki işlemler tek tek besin haline gelecek.
+            // hata veriyor tek birtane besin istedim ama array verdin diyor.
+            // Başına * koyarak tek tek verilmesini sağlıyoruz.
+            // Böylece foodList'teki besinleri tek tek dao içerisine verebiliyoruz.
+            // insertAll bize Long Listesi döndürüyordu döndürdüğü şeylerde uuid'lerdi onlarıda alalım.
+            // Yani eşitliğin sağ tarafında verilerimi veritabanına eklerken sol tarafındaad uuid'leri alıyoruz.
+            val uuidList = dao.insertAll(*foodList.toTypedArray())
+
+            //Şimdi aldığımız uuid'leri tek tek atayalım:
+            //SQLite'ta oluşturulan veri uuid'lerini modelimizin içine koyduk böylece model içindede bu uuid'lere erişebileceğiz.
+            var i = 0
+            while(i<foodList.size){
+                foodList[i].uuid = uuidList[i].toInt()
+                i = i + 1
+            }
+            showFoods(foodList)
+        }
     }
 }
