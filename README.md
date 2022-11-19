@@ -697,7 +697,7 @@ abstract class FoodDatabase : RoomDatabase(){
 
 > FoodListViewModel.kt'de sqlHide() metoduna gidelim. Artık launch dediğimizde coroutine scope oluşturuluyor. Bunu yaptığımızda yeni bir coroutine oluşturulur ve güncel thread neyse onu bloklamaz ve işlemleri farklı bir thread'de yapar ve buradaki coroutine'i bir iş olarak çalıştırır. Eğer coroutine iptal edilirse işte (job) iptal edilir. Artık launch ile oluşturduğumuz coorutine scope'te suspend fonksiyonları çağırmak gibi işlemlerimizi yapabiliriz. 
 
-> FoodListViewModel.kt
+> FoodListViewModel.kt deki sqlHide() metodu
 
 ![image](https://user-images.githubusercontent.com/109730490/202849360-51f97fc1-4184-43e5-a3f4-b856f0e0f392.png)
 
